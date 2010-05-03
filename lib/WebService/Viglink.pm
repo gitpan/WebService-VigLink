@@ -9,7 +9,7 @@ WebService::Viglink - Interface to the Viglink web API
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = 0.02;
 
 use URI::Escape ();
 
@@ -34,14 +34,16 @@ sub new {
 
     my %self; # old school OO
 
+    bless \%self, $class;
+
     $self{key}     = $args->{key};
     $self{format}  = $args->{format} || 'go'; # default to 301
 
-    my ($pkg) = $class =~ s/\:\:/_/;
-    my ($ver) = $VERSION =~ s/\./_/;
-    $self{version} = "$pkg\_$ver";
+    $class =~ s/\:\:/_/;
+    my ($ver) = $VERSION;
+    $ver =~ s/\./_/;
+    $self{version} = "$class\_$ver";
 
-    bless \%self, $class;
     return \%self;
 }
 
@@ -52,7 +54,7 @@ sub new {
                                  txt      => $text_of_link,
                                  loc      => $current_webpage,
                                  title    => $current_page_title,
-                                 ref      => $referring_page, });
+                                 referrer => $referring_page, });
 
 Returns a Viglink href.  Dies on missing args.  Encodes any urls passed to it.
 
@@ -62,7 +64,7 @@ Returns a Viglink href.  Dies on missing args.  Encodes any urls passed to it.
 sub make_url {
     my ($self, $args) = @_;
 
-    foreach my $param ( qw( out cuid txt loc title ref ) ) {
+    foreach my $param ( qw( out cuid txt loc title referrer ) ) {
         die "missing param $param" unless defined $args->{$param};
     }
 
@@ -75,7 +77,7 @@ sub make_url {
         $args->{'cuid'},
         URI::Escape::uri_escape($args->{'loc'}),
         URI::Escape::uri_escape($args->{'txt'}),
-        URI::Escape::uri_escape($args->{'ref'}),);
+        URI::Escape::uri_escape($args->{'referrer'}),);
 
     return $url;
 }

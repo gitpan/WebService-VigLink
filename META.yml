@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               WebService-Viglink
-version:            0.01
+version:            0.02
 abstract:           Interface to the Viglink web API
 author:
     - Fred Moyer <fred@slwifi.com>
