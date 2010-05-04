@@ -9,7 +9,7 @@ WebService::Viglink - Interface to the Viglink web API
 
 =cut
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 use URI::Escape ();
 
@@ -34,15 +34,10 @@ sub new {
 
     my %self; # old school OO
 
-    bless \%self, $class;
-
     $self{key}     = $args->{key};
     $self{format}  = $args->{format} || 'go'; # default to 301
 
-    $class =~ s/\:\:/_/;
-    my ($ver) = $VERSION;
-    $ver =~ s/\./_/;
-    $self{version} = "$class\_$ver";
+    bless \%self, $class;
 
     return \%self;
 }
@@ -68,15 +63,14 @@ sub make_url {
         die "missing param $param" unless defined $args->{$param};
     }
 
-    my $url = sprintf("http://api.viglink.com/api/click?title=%s&v=%s&key=%s&out=%s&format=%s&cuid=%s&loc=%s&txt=%s&ref=%s",
-        URI::Escape::uri_escape($args->{'title'}),
-        $self->{'version'},
+    my $url = sprintf("http://api.viglink.com/api/click?title=%s&key=%s&out=%s&format=%s&cuid=%s&loc=%s&txt=%s&ref=%s",
+        URI::Escape::uri_escape_utf8($args->{'title'}),
         $self->{'key'},
         URI::Escape::uri_escape($args->{'out'}),
         $self->{'format'},
         $args->{'cuid'},
         URI::Escape::uri_escape($args->{'loc'}),
-        URI::Escape::uri_escape($args->{'txt'}),
+        URI::Escape::uri_escape_utf8($args->{'txt'}),
         URI::Escape::uri_escape($args->{'referrer'}),);
 
     return $url;
