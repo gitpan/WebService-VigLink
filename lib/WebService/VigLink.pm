@@ -1,15 +1,15 @@
-package WebService::Viglink;
+package WebService::VigLink;
 
 use strict;
 use warnings;
 
 =head1 NAME
 
-WebService::Viglink - Interface to the Viglink web API
+WebService::VigLink - Interface to the VigLink web API
 
 =cut
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 use URI::Escape    ();
 use HTML::Entities ();
@@ -20,7 +20,7 @@ use HTML::Entities ();
 
 =item new()
 
- $Viglink = WebService::Viglink->new({ key => $apikey })
+ $VigLink = WebService::VigLink->new({ key => $apikey })
 
 See http://www.viglink.com/corp/api for the low level details and where
 to obtain an API key.
@@ -30,7 +30,7 @@ to obtain an API key.
 sub new {
     my ($class, $args) = @_;
 
-    die "You need an api key to access the Viglink API"
+    die "You need an api key to access the VigLink API"
         unless (defined $args->{key});
 
     my %self; # old school OO
@@ -45,14 +45,14 @@ sub new {
 
 =item make_url()
 
- $api_url = $Viglink->make_url({ out      => $click_destination,
+ $api_url = $VigLink->make_url({ out      => $click_destination,
                                  cuid     => $anonymous_user_id,
                                  txt      => $text_of_link,
                                  loc      => $current_webpage,
                                  title    => $current_page_title,
                                  referrer => $referring_page, });
 
-Returns a Viglink href.  Dies on missing args.  Encodes any urls passed to it.
+Returns a VigLink href.  Dies on missing args.  Encodes any urls passed to it.
 
 =cut
 
@@ -84,13 +84,13 @@ sub make_url {
 
 =head1 SYNOPSIS
 
-  use WebService::Viglink;
-  $Viglink = WebService::Viglink->new({ key => $api_key });
-  $affiliate_url = $Viglink->make_url({ ... });
+  use WebService::VigLink;
+  $VigLink = WebService::VigLink->new({ key => $api_key });
+  $affiliate_url = $VigLink->make_url({ ... });
 
 =head1 DESCRIPTION
 
-Simple encapsulation of the Viglink API.
+Simple encapsulation of the VigLink API.
 
 =head1 AUTHOR
 

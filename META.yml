@@ -1,7 +1,7 @@
 --- #YAML:1.0
-name:               WebService-Viglink
-version:            0.04
-abstract:           Interface to the Viglink web API
+name:               WebService-VigLink
+version:            0.05
+abstract:           Interface to the VigLink web API
 author:
     - Fred Moyer <fred@slwifi.com>
 license:            unknown
@@ -13,6 +13,7 @@ build_requires:
 requires:
     HTML::Entities:  0
     URI::Escape:     0
+    XML::LibXML:     0
 no_index:
     directory:
         - t
