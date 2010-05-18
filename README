@@ -1,40 +1,38 @@
-WebService-Viglink version 0.01
-===============================
+NAME
+    WebService::VigLink - Interface to the VigLink web API
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+METHODS
+    new()
+         $VigLink = WebService::VigLink->new({ key => $apikey })
 
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+        See http://www.viglink.com/corp/api for the low level details and
+        where to obtain an API key.
 
-INSTALLATION
+    make_url()
+         $api_url = $VigLink->make_url({ out      => $click_destination,
+                                         cuid     => $anonymous_user_id,
+                                         txt      => $text_of_link,
+                                         loc      => $current_webpage,
+                                         title    => $current_page_title,
+                                         referrer => $referring_page, });
 
-To install this module type the following:
+        Returns a VigLink href. Dies on missing args.
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+SYNOPSIS
+      use WebService::VigLink;
+      $VigLink = WebService::VigLink->new({ key => $api_key });
+      $affiliate_url = $VigLink->make_url({ ... });
 
-DEPENDENCIES
+DESCRIPTION
+    Simple encapsulation of the VigLink API.
 
-This module requires these other modules and libraries:
+AUTHOR
+    "Fred Moyer", <fred@slwifi.com>
 
-  blah blah blah
+COPYRIGHT AND LICENSE
+    Copyright (C) 2010 by Silver Lining Networks
 
-COPYRIGHT AND LICENCE
-
-Put the correct copyright and licence information here.
-
-Copyright (C) 2010 by root
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.10.1 or,
-at your option, any later version of Perl 5 you may have available.
-
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, either Perl version 5.10.1 or, at
+    your option, any later version of Perl 5 you may have available.
 

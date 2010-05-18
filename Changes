@@ -1,5 +1,10 @@
 Revision history for Perl extension WebService-VigLink.
 
+0.06 Tue May 17 11:08:00 PST 2020
+    - Let the caller handle encoding issues
+    - Use Any::URI::Escape to load XS escape subs if present
+    - Resolve a few encoding nits with the url encoding
+
 0.05 Mon May 10 18:30:00 PST 2010
     - namespace change to VigLink (upper case L instead of lower case)
 

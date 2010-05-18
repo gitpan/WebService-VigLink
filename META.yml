@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               WebService-VigLink
-version:            0.05
+version:            0.06
 abstract:           Interface to the VigLink web API
 author:
     - Fred Moyer <fred@slwifi.com>
@@ -11,9 +11,7 @@ configure_requires:
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
-    HTML::Entities:  0
-    URI::Escape:     0
-    XML::LibXML:     0
+    Any::URI::Escape:  0.01
 no_index:
     directory:
         - t

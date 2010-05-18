@@ -9,10 +9,9 @@ WebService::VigLink - Interface to the VigLink web API
 
 =cut
 
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 
-use URI::Escape    ();
-use HTML::Entities ();
+use Any::URI::Escape;
 
 =head1 METHODS
 
@@ -29,8 +28,8 @@ to obtain an API key.
 
 sub new {
     my ($class, $args) = @_;
-
-    die "You need an api key to access the VigLink API"
+    
+    die "You need an api key to access the VigLink API, args "
         unless (defined $args->{key});
 
     my %self; # old school OO
@@ -52,7 +51,7 @@ sub new {
                                  title    => $current_page_title,
                                  referrer => $referring_page, });
 
-Returns a VigLink href.  Dies on missing args.  Encodes any urls passed to it.
+Returns a VigLink href.  Dies on missing args.
 
 =cut
 
@@ -65,14 +64,14 @@ sub make_url {
     }
 
     my $url = sprintf("http://api.viglink.com/api/click?title=%s&key=%s&out=%s&format=%s&cuid=%s&loc=%s&txt=%s&ref=%s",
-        URI::Escape::uri_escape_utf8(HTML::Entities::encode_numeric($args->{'title'})),
+        uri_escape($args->{'title'}),
         $self->{'key'},
-        URI::Escape::uri_escape(HTML::Entities::encode_numeric($args->{'out'})),
+        uri_escape($args->{'out'}),
         $self->{'format'},
         $args->{'cuid'},
-        URI::Escape::uri_escape(HTML::Entities::encode_numeric($args->{'loc'})),
-        URI::Escape::uri_escape_utf8(HTML::Entities::encode_numeric($args->{'txt'})),
-        URI::Escape::uri_escape(HTML::Entities::encode_numeric( $args->{'referrer'}),));
+        uri_escape($args->{'loc'}),
+        uri_escape($args->{'txt'}),
+        uri_escape($args->{'referrer'}),);
 
     return $url;
 }
